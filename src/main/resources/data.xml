@@ -5252,4 +5252,16 @@
 
 </p><p>See also: <a href="https://www.nesdev.org/obelisk-6502-guide/reference.html#TSX">TSX</a></p>]]></description></opcode>
     </opcodes>
+    <memory>
+        <!--        PPU Registers        -->
+        <address name="PPUCTRL" address="$2000"/>
+        <address name="PPUMASK" address="$2001"/>
+        <address name="PPUSTATUS" address="$2002"/>
+        <address name="OAMADDR" address="$2003"/>
+        <address name="OAMDATA" address="$2004"/>
+        <address name="PPUSCROLL" address="$2005"/>
+        <address name="PPUADDR" address="$2006"/>
+        <address name="PPUDATA" address="$2007"/>
+        <address name="OAMDMA" address="$4014"/>
+    </memory>
 </spec>

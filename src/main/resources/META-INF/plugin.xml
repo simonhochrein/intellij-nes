@@ -22,14 +22,27 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <fileType name="Assembly File" implementationClass="com.simonhochrein.nesdev.asm.AsmFileType" fieldName="INSTANCE" language="Assembly" extensions="s"/>
-        <lang.parserDefinition language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.AsmParserDefinition" />
-        <lang.syntaxHighlighter language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.AsmSyntaxHighlighter"/>
-        <lang.findUsagesProvider language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.AsmFindUsagesProvider" />
-        <lang.documentationProvider language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.AsmDocumentationProvider"/>
-        <lang.commenter language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.AsmCommenter" />
-        <gotoSymbolContributor implementation="com.simonhochrein.nesdev.asm.AsmGotoSymbolContributor" />
+        <fileType name="Assembly File" implementationClass="com.simonhochrein.nesdev.asm.AsmFileType"
+                  fieldName="INSTANCE" language="Assembly" extensions="s"/>
+        <lang.parserDefinition language="Assembly"
+                               implementationClass="com.simonhochrein.nesdev.asm.AsmParserDefinition"/>
+        <lang.syntaxHighlighter language="Assembly"
+                                implementationClass="com.simonhochrein.nesdev.asm.AsmSyntaxHighlighter"/>
+        <lang.findUsagesProvider language="Assembly"
+                                 implementationClass="com.simonhochrein.nesdev.asm.AsmFindUsagesProvider"/>
+        <lang.documentationProvider language="Assembly"
+                                    implementationClass="com.simonhochrein.nesdev.asm.AsmDocumentationProvider"/>
+        <lang.commenter language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.AsmCommenter"/>
+        <lang.foldingBuilder language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.AsmFoldingBuilder"/>
+        <lang.psiStructureViewFactory language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.structureview.AsmStructureViewFactory"/>
+        <codeInsight.inlayProvider language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.MemoryInlayProvider"/>
+        <completion.contributor language="Assembly"
+                                implementationClass="com.simonhochrein.nesdev.asm.AsmCompletionContributor"/>
+        <gotoSymbolContributor implementation="com.simonhochrein.nesdev.asm.AsmGotoSymbolContributor"/>
         <annotator language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.AsmAnnotator"/>
-        <completion.contributor language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.AsmCompletionContributor"/>
+
+        <configurationType implementation="com.simonhochrein.nesdev.build.NesRunConfigurationType"/>
+        <stepsBeforeRunProvider implementation="com.simonhochrein.nesdev.build.NesBuildTaskProvider"/>
+        <projectTaskRunner implementation="com.simonhochrein.nesdev.build.NesBuildTaskRunner"/>
     </extensions>
 </idea-plugin>
