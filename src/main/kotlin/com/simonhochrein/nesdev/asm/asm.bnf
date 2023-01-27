@@ -1,0 +1,73 @@
+{
+    parserClass="com.simonhochrein.nesdev.asm.parser.AsmParser"
+    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+    psiClassPrefix="Asm"
+    psiImplClassSuffix="Impl"
+    psiPackage="com.simonhochrein.nesdev.asm.psi"
+    psiImplPackage="com.simonhochrein.nesdev.asm.psi.impl"
+
+    elementTypeHolderClass="com.simonhochrein.nesdev.asm.psi.AsmTypes"
+    elementTypeClass="com.simonhochrein.nesdev.asm.psi.AsmElementType"
+    tokenTypeClass="com.simonhochrein.nesdev.asm.psi.AsmTokenType"
+
+    psiImplUtilClass="com.simonhochrein.nesdev.asm.psi.impl.AsmPsiImplUtil"
+}
+
+asmFile ::= (line_ EOL)* line_?
+
+private line_ ::= (instruction_line | assignment_line | directive_line | only_label_line)? COMMENT? {pin=1 recoverWhile=line_recover}
+
+private line_recover ::= !EOL
+
+private assignment_line ::= assignment
+
+assignment ::= constant EQUAL expr
+
+constant ::= IDENTIFIER {
+methods=[getIdentifier getName setName getNameIdentifier getPresentation]
+mixin="com.simonhochrein.nesdev.asm.psi.impl.AsmNamedElementImpl"
+implements="com.simonhochrein.nesdev.asm.psi.impl.AsmNamedElement"
+}
+
+private directive_line ::= label? directive expressions
+
+private expressions ::= expr (COMMA expr)*
+
+private instruction_line ::= label? opcode operand?
+
+directive ::= DOT IDENTIFIER
+
+opcode ::= MNEMONIC {
+methods=[getName setName getNameIdentifier]
+mixin="com.simonhochrein.nesdev.asm.psi.impl.AsmNamedElementImpl"
+implements="com.simonhochrein.nesdev.asm.psi.impl.AsmNamedElement"
+}
+
+operand ::= (
+    HASH expr
+    | UNNAMED_LABEL
+    | expr (COMMA IDENTIFIER)?
+)
+
+expr ::= (
+    number
+    | ref
+    | STRING
+)
+
+ref ::= IDENTIFIER {
+methods=[getIdentifier getName setName getNameIdentifier]
+mixin="com.simonhochrein.nesdev.asm.psi.impl.AsmNamedElementImpl"
+implements="com.simonhochrein.nesdev.asm.psi.impl.AsmNamedElement"
+}
+
+number ::= (HEX_NUMBER | DEC_NUMBER | BIN_NUMBER)
+
+label ::= AT? IDENTIFIER? COLON {
+methods=[getLabel getName setName getNameIdentifier getPresentation]
+mixin="com.simonhochrein.nesdev.asm.psi.impl.AsmNamedElementImpl"
+implements="com.simonhochrein.nesdev.asm.psi.impl.AsmNamedElement"
+}
+
+only_label_line ::= label

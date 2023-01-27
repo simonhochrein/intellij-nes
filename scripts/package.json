@@ -1,0 +1,8 @@
+{
+  "name": "docproc",
+  "private": true,
+  "version": "0.0.1",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12"
+  }
+}
