@@ -21,9 +21,11 @@ class AsmCompletionContributor : CompletionContributor() {
                 context: ProcessingContext,
                 result: CompletionResultSet
             ) {
+                val uppercase = result.prefixMatcher.prefix.isNotEmpty() && result.prefixMatcher.prefix[0].isUpperCase()
+
                 val opcodes = AsmLanguageSpec.INSTANCE.opcodes
                 result.addAllElements(opcodes.map {
-                    LookupElementBuilder.create(it.mnemonic).withTypeText(it.name).withInsertHandler(InlineInsertHandler())
+                    LookupElementBuilder.create(if(uppercase) it.mnemonic.uppercase() else it.mnemonic).withTypeText(it.name).withInsertHandler(InlineInsertHandler())
                 })
             }
         })
@@ -48,8 +50,10 @@ class AsmCompletionContributor : CompletionContributor() {
         override fun handleInsert(context: InsertionContext, item: LookupElement) {
             val editor = context.editor
             val offset = editor.caretModel.offset
-            context.document.insertString(offset, " ");
-            editor.caretModel.moveToOffset(offset + 1)
+            if(context.document.charsSequence[offset] != ' ') {
+                context.document.insertString(offset, " ");
+                editor.caretModel.moveToOffset(offset + 1)
+            }
         }
 
     }

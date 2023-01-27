@@ -24,6 +24,10 @@ public class AsmVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitHashOperand(@NotNull AsmHashOperand o) {
+    visitPsiElement(o);
+  }
+
   public void visitLabel(@NotNull AsmLabel o) {
     visitNamedElement(o);
   }

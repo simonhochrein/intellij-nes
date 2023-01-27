@@ -45,10 +45,12 @@ implements="com.simonhochrein.nesdev.asm.psi.impl.AsmNamedElement"
 }
 
 operand ::= (
-    HASH expr
+    hash_operand
     | UNNAMED_LABEL
     | expr (COMMA IDENTIFIER)?
 )
+
+hash_operand ::= HASH (number | ref | STRING)
 
 expr ::= (
     number

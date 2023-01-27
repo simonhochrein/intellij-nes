@@ -12,6 +12,7 @@ public interface AsmTypes {
   IElementType CONSTANT = new AsmElementType("CONSTANT");
   IElementType DIRECTIVE = new AsmElementType("DIRECTIVE");
   IElementType EXPR = new AsmElementType("EXPR");
+  IElementType HASH_OPERAND = new AsmElementType("HASH_OPERAND");
   IElementType LABEL = new AsmElementType("LABEL");
   IElementType NUMBER = new AsmElementType("NUMBER");
   IElementType ONLY_LABEL_LINE = new AsmElementType("ONLY_LABEL_LINE");
@@ -49,6 +50,9 @@ public interface AsmTypes {
       }
       else if (type == EXPR) {
         return new AsmExprImpl(node);
+      }
+      else if (type == HASH_OPERAND) {
+        return new AsmHashOperandImpl(node);
       }
       else if (type == LABEL) {
         return new AsmLabelImpl(node);

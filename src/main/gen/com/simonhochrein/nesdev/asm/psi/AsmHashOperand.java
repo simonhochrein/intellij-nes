@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface AsmOperand extends PsiElement {
+public interface AsmHashOperand extends PsiElement {
 
   @Nullable
-  AsmExpr getExpr();
+  AsmNumber getNumber();
 
   @Nullable
-  AsmHashOperand getHashOperand();
+  AsmRef getRef();
 
 }

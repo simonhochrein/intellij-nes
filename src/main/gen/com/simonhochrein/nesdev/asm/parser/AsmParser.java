@@ -190,6 +190,29 @@ public class AsmParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // HASH (number | ref | STRING)
+  public static boolean hash_operand(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "hash_operand")) return false;
+    if (!nextTokenIs(b, HASH)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, HASH);
+    r = r && hash_operand_1(b, l + 1);
+    exit_section_(b, m, HASH_OPERAND, r);
+    return r;
+  }
+
+  // number | ref | STRING
+  private static boolean hash_operand_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "hash_operand_1")) return false;
+    boolean r;
+    r = number(b, l + 1);
+    if (!r) r = ref(b, l + 1);
+    if (!r) r = consumeToken(b, STRING);
+    return r;
+  }
+
+  /* ********************************************************** */
   // label? opcode operand?
   static boolean instruction_line(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "instruction_line")) return false;
@@ -329,28 +352,17 @@ public class AsmParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // HASH expr
+  // hash_operand
   //     | UNNAMED_LABEL
   //     | expr (COMMA IDENTIFIER)?
   public static boolean operand(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "operand")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, OPERAND, "<operand>");
-    r = operand_0(b, l + 1);
+    r = hash_operand(b, l + 1);
     if (!r) r = consumeToken(b, UNNAMED_LABEL);
     if (!r) r = operand_2(b, l + 1);
     exit_section_(b, l, m, r, false, null);
-    return r;
-  }
-
-  // HASH expr
-  private static boolean operand_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "operand_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, HASH);
-    r = r && expr(b, l + 1);
-    exit_section_(b, m, null, r);
     return r;
   }
 

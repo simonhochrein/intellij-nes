@@ -11,14 +11,14 @@ import static com.simonhochrein.nesdev.asm.psi.AsmTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.simonhochrein.nesdev.asm.psi.*;
 
-public class AsmOperandImpl extends ASTWrapperPsiElement implements AsmOperand {
+public class AsmHashOperandImpl extends ASTWrapperPsiElement implements AsmHashOperand {
 
-  public AsmOperandImpl(@NotNull ASTNode node) {
+  public AsmHashOperandImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull AsmVisitor visitor) {
-    visitor.visitOperand(this);
+    visitor.visitHashOperand(this);
   }
 
   @Override
@@ -29,14 +29,14 @@ public class AsmOperandImpl extends ASTWrapperPsiElement implements AsmOperand {
 
   @Override
   @Nullable
-  public AsmExpr getExpr() {
-    return findChildByClass(AsmExpr.class);
+  public AsmNumber getNumber() {
+    return findChildByClass(AsmNumber.class);
   }
 
   @Override
   @Nullable
-  public AsmHashOperand getHashOperand() {
-    return findChildByClass(AsmHashOperand.class);
+  public AsmRef getRef() {
+    return findChildByClass(AsmRef.class);
   }
 
 }

@@ -2,6 +2,7 @@ package com.simonhochrein.nesdev.asm
 
 import com.intellij.lang.documentation.AbstractDocumentationProvider
 import com.intellij.psi.PsiElement
+import com.intellij.psi.PsiManager
 import com.simonhochrein.nesdev.asm.psi.AsmOpcode
 
 class AsmDocumentationProvider : AbstractDocumentationProvider() {
@@ -13,5 +14,16 @@ class AsmDocumentationProvider : AbstractDocumentationProvider() {
             }
         }
         return super.generateDoc(element, originalElement)
+    }
+
+    override fun getDocumentationElementForLookupItem(
+        psiManager: PsiManager?,
+        obj: Any?,
+        element: PsiElement?
+    ): PsiElement? {
+        if(element is AsmOpcode) {
+            return element
+        }
+        return super.getDocumentationElementForLookupItem(psiManager, obj, element)
     }
 }

@@ -27,6 +27,7 @@
         <lang.syntaxHighlighter language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.AsmSyntaxHighlighter"/>
         <lang.findUsagesProvider language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.AsmFindUsagesProvider" />
         <lang.documentationProvider language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.AsmDocumentationProvider"/>
+        <lang.commenter language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.AsmCommenter" />
         <gotoSymbolContributor implementation="com.simonhochrein.nesdev.asm.AsmGotoSymbolContributor" />
         <annotator language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.AsmAnnotator"/>
         <completion.contributor language="Assembly" implementationClass="com.simonhochrein.nesdev.asm.AsmCompletionContributor"/>
